@@ -35,8 +35,8 @@ func itemListHandler(w http.ResponseWriter, r *http.Request) {
 		t := template.Must(template.New("items").Parse(html))
 		t.Execute(w, mod.ItemList)
 
-		fmt.Println("\n === МОЯ КАРТОТЕКА ПРЕДМЕТІВ === \n")
-
+		fmt.Println("\n === МОЯ КАРТОТЕКА ПРЕДМЕТІВ ===")
+		fmt.Printf("\nПредмети (%d):\n", len(mod.ItemList))
 		for i, n := range mod.ItemList {
 			fmt.Printf("%d. %s - Оцінка: %d/12\n", i+1, n.Name, n.Grade)
 		}
