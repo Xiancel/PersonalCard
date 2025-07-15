@@ -49,7 +49,7 @@ func itemListHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", itemListHandler)
 	fmt.Println("Server Start http://localhost:8080")
-	fmt.Println("Маршрути :\n GET / (item list) vse))")
+	fmt.Println("Маршрути :\n GET / (item list)")
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		fmt.Println("Server Caput unlucky")
