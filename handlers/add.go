@@ -14,12 +14,17 @@ func AddHandler(w http.ResponseWriter, r *http.Request) {
 		notes := r.URL.Query().Get("notes")
 
 		if name == "" {
-			fmt.Println("Enter name pls")
+			fmt.Println("❌ Помилка: введіть назву предмета")
 			return
 		}
 		grade, err := strconv.Atoi(gradeStr)
 		if err != nil {
 			http.Error(w, "Значення Grade введено неправильно", http.StatusBadRequest)
+			fmt.Println("❌ Помилка: Значення Grade введено неправильно")
+			return
+		}
+		if grade < 0 || grade > 12 {
+			fmt.Println("❌ Помилка: Значення Grade поза діапазоном")
 			return
 		}
 

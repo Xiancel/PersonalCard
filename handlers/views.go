@@ -17,10 +17,10 @@ func filterById(inputId int) mod.Items {
 }
 func ViewsHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-		checkId := r.URL.Query().Get("ID")
+		checkId := r.URL.Query().Get("id")
 		if checkId == "" {
 			http.Error(w, "ID не вказано", http.StatusBadRequest)
-			fmt.Println("Enter Id") //может удалить потом
+			fmt.Println("❌ ПОМИЛКА: ID параметр обов'язковий")
 			return
 		}
 
@@ -32,7 +32,8 @@ func ViewsHandler(w http.ResponseWriter, r *http.Request) {
 
 		item := filterById(inputId)
 		if item.Id == 0 {
-			http.Error(w, "Предмет не знайдено", http.StatusBadRequest)
+			http.Error(w, "Not Found", http.StatusBadRequest)
+			fmt.Printf("❌ ПОМИЛКА: Предмет з ID=%d не знайдено\n", inputId)
 			return
 		}
 		fmt.Println("\n=== ПЕРЕГЛЯД ПРЕДМЕТУ ===")

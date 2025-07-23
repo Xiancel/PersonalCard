@@ -24,7 +24,7 @@ func ItemListHandler(w http.ResponseWriter, r *http.Request) {
 			<h1>Список предметів</h1>
 			<ul>
 				{{range .}}
-					<li>{{.Id}}. {{.Name}} - Оцінка: {{.Grade}}/{{.Notes}}</li>
+					<li>{{.Id}}. {{.Name}} - Оцінка: {{.Grade}}/12{{.Notes}}</li>
 				{{end}}
 			</ul>
 			<p><strong>Всього предметів: {{len .}}</strong></p>

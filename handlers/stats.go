@@ -6,7 +6,7 @@ import (
 	mod "personalcard/module"
 )
 
-// func statsHandler
+// функція визначення середніого балу
 func avgGrade() float64 {
 	var ball float64
 	for _, n := range mod.ItemList {
@@ -18,6 +18,7 @@ func avgGrade() float64 {
 	return avg
 }
 
+// функція визначення найкрашого предмета
 func bestStats() (int, string) {
 	if len(mod.ItemList) == 0 {
 		return 0, " "
@@ -37,6 +38,7 @@ func bestStats() (int, string) {
 	return bestGrade, bestName
 }
 
+// функція визначення найгіршого предмета
 func worstStats() (int, string) {
 	if len(mod.ItemList) == 0 {
 		return 0, " "
