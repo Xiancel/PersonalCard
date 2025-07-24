@@ -20,15 +20,14 @@ func avgGrade() float64 {
 
 // функція визначення найкрашого предмета
 func bestStats() (int, string) {
+	// перевірка на наявність предметів
 	if len(mod.ItemList) == 0 {
 		return 0, " "
 	}
-	var bestGrade int
-	var bestName string
+	bestGrade := mod.ItemList[0].Grade
+	bestName := mod.ItemList[0].Name
 
-	bestGrade = mod.ItemList[0].Grade
-	bestName = mod.ItemList[0].Name
-
+	// визначення найкрашого предмета
 	for _, n := range mod.ItemList[1:] {
 		if n.Grade > bestGrade {
 			bestGrade = n.Grade
@@ -40,15 +39,14 @@ func bestStats() (int, string) {
 
 // функція визначення найгіршого предмета
 func worstStats() (int, string) {
+	// перевірка на наявність предметів
 	if len(mod.ItemList) == 0 {
 		return 0, " "
 	}
-	var worstGrade int
-	var worstName string
+	worstGrade := mod.ItemList[0].Grade
+	worstName := mod.ItemList[0].Name
 
-	worstGrade = mod.ItemList[0].Grade
-	worstName = mod.ItemList[0].Name
-
+	// визначення найгіршого предмета
 	for _, n := range mod.ItemList[1:] {
 		if n.Grade < worstGrade {
 			worstGrade = n.Grade
@@ -57,10 +55,16 @@ func worstStats() (int, string) {
 	}
 	return worstGrade, worstName
 }
+
+// функція/хендлер для виводу статистки навчання
 func StatsHandler(w http.ResponseWriter, r *http.Request) {
+	// виклик функції
 	bestGrade, bestName := bestStats()
 	worstGrade, worstName := worstStats()
+
+	// перевірка метода
 	if r.Method == "GET" {
+		// вивід інформації
 		fmt.Println("=== СТАТИСТИКА НАВЧАННЯ ===")
 		fmt.Printf("Всього предметів: %d\n", len(mod.ItemList))
 		fmt.Printf("Середній бал: %.2f/12\n", avgGrade())

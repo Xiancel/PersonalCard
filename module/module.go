@@ -1,10 +1,12 @@
 package module
 
+// структура яка містить
 type Items struct {
-	Id    int
-	Name  string
-	Grade int
-	Notes string
+	Id    int    // ID предмету
+	Name  string // назва предмета
+	Grade int    // оцінка предмета
+	Notes string // нотатки предмета
 }
 
+// слайсл для зберегання предметів
 var ItemList []Items

@@ -7,8 +7,11 @@ import (
 	mod "personalcard/module"
 )
 
+// функція/Хендлер
 func ItemListHandler(w http.ResponseWriter, r *http.Request) {
+	// перевірка методу
 	if r.Method == "GET" {
+		// html розмітка
 		html := `
 		<!DOCTYPE html>
 		<html>
@@ -31,10 +34,12 @@ func ItemListHandler(w http.ResponseWriter, r *http.Request) {
 		</body>
 		</html>
 		`
+		// формування html сторінки
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		t := template.Must(template.New("items").Parse(html))
 		t.Execute(w, mod.ItemList)
 
+		// вивід всіх предметів користувачу
 		fmt.Println("\n === МОЯ КАРТОТЕКА ПРЕДМЕТІВ ===")
 		fmt.Printf("\nПредмети (%d):\n", len(mod.ItemList))
 		for i, n := range mod.ItemList {
