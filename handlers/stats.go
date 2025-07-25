@@ -61,15 +61,44 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 	// виклик функції
 	bestGrade, bestName := bestStats()
 	worstGrade, worstName := worstStats()
-
+	avg := avgGrade()
+	total := len(mod.ItemList)
 	// перевірка метода
 	if r.Method == "GET" {
 		// вивід інформації
-		fmt.Println("=== СТАТИСТИКА НАВЧАННЯ ===")
-		fmt.Printf("Всього предметів: %d\n", len(mod.ItemList))
-		fmt.Printf("Середній бал: %.2f/12\n", avgGrade())
+		fmt.Println("\n📊 === СТАТИСТИКА НАВЧАННЯ ===")
+		fmt.Printf("Всього предметів: %d\n", total)
+		fmt.Printf("Середній бал: %.2f/12\n", avg)
 		fmt.Printf("Найкраща оцінка: %d/12 (%s)\n", bestGrade, bestName)
 		fmt.Printf("Найгірша оцінка: %d/12 (%s)\n", worstGrade, worstName)
+
+		// html розмітка
+		html := fmt.Sprintf(`
+		<!DOCTYPE html>
+		<html>
+		<head>
+			<title>Статистика навчання</title>
+			<style>
+				body { font-family: sans-serif; padding: 20px; }
+				ul { list-style-type: none; padding: 0; }
+				li { margin-bottom: 8px; }
+			</style>
+		</head>
+		<body>
+			<h1>СТАТИСТИКА НАВЧАННЯ</h1>
+			<ul>
+				<li><strong>Всього предметів:</strong> %d</li>
+				<li><strong>Середній бал:</strong> %.2f/12</li>
+				<li><strong>Найкраща оцінка:</strong> %d/12 (%s)</li>
+				<li><strong>Найгірша оцінка:</strong> %d/12 (%s)</li>
+			</ul>
+		</body>
+		</html>
+		`, total, avg, bestGrade, bestName, worstGrade, worstName)
+
+		// формування html сторінки
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		w.Write([]byte(html))
 	} else {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		fmt.Fprintf(w, "Sorry this method no support")

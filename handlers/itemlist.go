@@ -27,7 +27,7 @@ func ItemListHandler(w http.ResponseWriter, r *http.Request) {
 			<h1>Список предметів</h1>
 			<ul>
 				{{range .}}
-					<li>{{.Id}}. {{.Name}} - Оцінка: {{.Grade}}/12{{.Notes}}</li>
+					<li>{{.Id}}. {{.Name}} - Оцінка: {{.Grade}}/12</li>
 				{{end}}
 			</ul>
 			<p><strong>Всього предметів: {{len .}}</strong></p>
@@ -40,7 +40,7 @@ func ItemListHandler(w http.ResponseWriter, r *http.Request) {
 		t.Execute(w, mod.ItemList)
 
 		// вивід всіх предметів користувачу
-		fmt.Println("\n === МОЯ КАРТОТЕКА ПРЕДМЕТІВ ===")
+		fmt.Println("\n📚 === МОЯ КАРТОТЕКА ПРЕДМЕТІВ ===")
 		fmt.Printf("\nПредмети (%d):\n", len(mod.ItemList))
 		for i, n := range mod.ItemList {
 			fmt.Printf("%d. %s - Оцінка: %d/12\n", i+1, n.Name, n.Grade)

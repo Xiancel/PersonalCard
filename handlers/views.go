@@ -48,9 +48,37 @@ func ViewsHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		// html розмітка
+		html := fmt.Sprintf(`
+		<!DOCTYPE html>
+		<html>
+		<head>
+			<title>Перегляд предмету</title>
+			<style>
+				body { font-family: sans-serif; padding: 20px; }
+				ul { list-style-type: none; padding: 0; }
+				li { margin-bottom: 8px; }
+			</style>
+		</head>
+		<body>
+			<h1>ПЕРЕГЛЯД ПРЕДМЕТУ</h1>
+			<ul>
+				<li><strong>ID:</strong> %d</li>
+				<li><strong>Назва:</strong> %s</li>
+				<li><strong>Оцінка:</strong> %d/12</li>
+				<li><strong>Нотатки:</strong> %s</li>
+			</ul>
+		</body>
+		</html>
+		`, item.Id, item.Name, item.Grade, item.Notes)
+
+		// формування html сторінки
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		w.Write([]byte(html))
+
 		// вивід інформації про знайдений предмет
-		fmt.Println("\n=== ПЕРЕГЛЯД ПРЕДМЕТУ ===")
-		fmt.Printf("ID: %d\nНазва: %s\nОцінка: %d/12\nНотатки: %s", item.Id, item.Name, item.Grade, item.Notes)
+		fmt.Println("\n🔍 === ПЕРЕГЛЯД ПРЕДМЕТУ ===")
+		fmt.Printf("\nID: %d\nНазва: %s\nОцінка: %d/12\nНотатки: %s", item.Id, item.Name, item.Grade, item.Notes)
 
 	} else {
 		w.WriteHeader(http.StatusMethodNotAllowed)

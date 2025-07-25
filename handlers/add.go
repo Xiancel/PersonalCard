@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 	mod "personalcard/module"
 	"strconv"
@@ -45,8 +46,37 @@ func AddHandler(w http.ResponseWriter, r *http.Request) {
 		mod.ItemList = append(mod.ItemList, newItem)
 
 		// вивід інформаціЇ
-		fmt.Println("✅ ПРЕДМЕТ ДОДАНО УСПІШНО!")
+		fmt.Println("\n✅ ПРЕДМЕТ ДОДАНО УСПІШНО!")
 		fmt.Printf("\nID: %d\nНазва: %s\nОцінка: %d/12\nНотатки: %s", newItem.Id, newItem.Name, newItem.Grade, newItem.Notes)
+
+		// html розмітка
+		html := `
+			<!DOCTYPE html>
+			<html>
+			<head>
+				<title>Предмет додано</title>
+				<style>
+					body { font-family: sans-serif; padding: 20px; }
+					ul { list-style-type: none; padding: 0; }
+					li { margin-bottom: 8px; }
+				</style>
+			</head>
+			<body>
+				<h1>ПРЕДМЕТ ДОДАНО УСПІШНО!</h1>
+				<ul>
+					<li><strong>ID:</strong> {{.Id}}</li>
+					<li><strong>Назва:</strong> {{.Name}}</li>
+					<li><strong>Оцінка:</strong> {{.Grade}}/12</li>
+					<li><strong>Нотатки:</strong> {{.Notes}}</li>
+				</ul>
+			</body>
+			</html>
+			`
+
+		// формування html сторінки
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		t := template.Must(template.New("added").Parse(html))
+		t.Execute(w, newItem)
 	} else {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		fmt.Fprintf(w, "Sorry this method no support")

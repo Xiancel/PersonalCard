@@ -8,12 +8,12 @@ import (
 
 // функція для виводу інформації про маршрути в консоль
 func routes() {
-	fmt.Println("Маршрути:")
-	fmt.Println("GET / (item list)")
-	fmt.Println("GET /stats (stats)")
-	fmt.Println("POST /add (add new item)")
-	fmt.Println("GET /views (check item)")
-	fmt.Println("⏹️ Для зупинки натисніть Ctrl+C")
+	fmt.Println("📌 Маршрути:")
+	fmt.Println(" • GET / (item list)")
+	fmt.Println(" • GET /stats (stats)")
+	fmt.Println(" • POST /add (add new item)")
+	fmt.Println(" • GET /views (check item)")
+	fmt.Println("⏹️  Для зупинки натисніть Ctrl+C")
 }
 
 // головна функція
@@ -23,7 +23,7 @@ func main() {
 	http.HandleFunc("/stats", handlers.StatsHandler)
 	http.HandleFunc("/add", handlers.AddHandler)
 	http.HandleFunc("/views", handlers.ViewsHandler)
-	fmt.Println("Server Start http://localhost:8080")
+	fmt.Println("🚀 Server Start http://localhost:8080")
 
 	// вивід маршрутів
 	routes()
